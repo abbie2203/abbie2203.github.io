@@ -1,194 +1,172 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Abhishek Kumar - Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg-color: #f9fafb;
-      --text-color: #1f2937;
-      --header-bg: linear-gradient(90deg, #1e3a8a, #2563eb);
-      --footer-bg: #1e3a8a;
-    }
-    [data-theme="dark"] {
-      --bg-color: #1f2937;
-      --text-color: #f3f4f6;
-      --header-bg: linear-gradient(90deg, #111827, #374151);
-      --footer-bg: #111827;
-    }
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: var(--bg-color);
-      color: var(--text-color);
-      transition: background 0.3s, color 0.3s;
-    }
-    header {
-      background: var(--header-bg);
-      color: #fff;
-      padding: 3rem 2rem 2rem 2rem;
-      text-align: center;
-      position: relative;
-    }
-    header img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid #fff;
-      margin-bottom: 1rem;
-    }
-    .container {
-      max-width: 960px;
-      margin: auto;
-      padding: 2rem;
-    }
-    section {
-      margin-bottom: 2rem;
-    }
-    h1, h2 {
-      color: var(--text-color);
-    }
-    footer {
-      text-align: center;
-      background: var(--footer-bg);
-      color: #fff;
-      padding: 1rem;
-    }
-    ul {
-      padding-left: 1.5rem;
-    }
-    .toggle-panel {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 50px;
-      height: 26px;
-    }
-    .switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      transition: .4s;
-      border-radius: 26px;
-    }
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 20px;
-      width: 20px;
-      left: 3px;
-      bottom: 3px;
-      background-color: white;
-      transition: .4s;
-      border-radius: 50%;
-    }
-    input:checked + .slider {
-      background-color: #4ade80;
-    }
-    input:checked + .slider:before {
-      transform: translateX(24px);
-    }
-    .lang-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 1.2rem;
-      color: white;
-    }
+    body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; color: #222; background: #f6f8fa; }
+    header, footer { background: #282c34; color: #fff; }
+    header { padding: 2rem 1rem 1rem; text-align: center; }
+    nav a { color: #a8ff60; text-decoration: none; margin: 0 10px; font-weight: bold; }
+    nav a:hover { text-decoration: underline; }
+    section { max-width: 800px; margin: 2rem auto; padding: 2rem; background: #fff; border-radius: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,0.03);}
+    h1, h2 { margin: 0 0 1rem; }
+    h1 { font-size: 2.7rem; letter-spacing: 2px;}
+    h2 { color: #195faa; }
+    ul { margin: 0; padding-left: 1.3rem;}
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;}
+    @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } section { padding: 1rem;}}
+    footer { padding: 1rem; text-align: center; font-size: 0.9rem; }
+    .contact-link { color: #195faa; }
   </style>
 </head>
 <body>
-
   <header>
-    <div class="toggle-panel">
-      <label class="switch">
-        <input type="checkbox" onclick="toggleTheme()">
-        <span class="slider"></span>
-      </label>
-      <button class="lang-btn" onclick="toggleLanguage()" title="Toggle Language">🌐</button>
-    </div>
-    <img src="profile.jpg" alt="Abhishek Kumar" />
-    <h1 id="name">Abhishek Kumar</h1>
-    <p id="role">Projektleiter | IT Management | Agile Methoden</p>
-    <p>Email: <a href="mailto:abhishek.kumar@gmx.de">abhishek.kumar@gmx.de</a> | Tel: +49 176 27803395</p>
+    <h1>Abhishek Kumar</h1>
+    <p>Project Manager | M.A. IT Management</p>
+    <p>
+      Max-Weber Straße 4, 75175 Pforzheim, DE &nbsp;|&nbsp; +49 176 27803395 &nbsp;|&nbsp;
+      <a href="mailto:abhishek.kumar@gmx.de" class="contact-link">abhishek.kumar@gmx.de</a>
+    </p>
+    <nav style="margin-top:1.3rem">
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </header>
 
-  <div class="container" id="content"></div>
+  <section id="about">
+    <h2>About Me</h2>
+    <p>
+      Project Manager with expertise in IT Management, Project Coordination, and R&amp;D. Skilled in Agile methodologies, technical documentation, and multi-lingual communication. Passionate about photography, fitness, travel, and cycling.
+    </p>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="grid">
+      <div>
+        <h3>Project Management</h3>
+        <ul>
+          <li>IPMA Standards</li>
+          <li>Agile Methods: Scrum, Kanban</li>
+          <li>Tools: Jira, Confluence, MS Project</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Technical Skills</h3>
+        <ul>
+          <li>Programming: C#, C++, Python</li>
+          <li>Database Management</li>
+          <li>SAP, MS Office, Cloud Computing</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Languages</h3>
+        <ul>
+          <li>German</li>
+          <li>English</li>
+          <li>Hindi</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Personal Strengths</h3>
+        <ul>
+          <li>Teamwork</li>
+          <li>Time Management</li>
+          <li>Communication</li>
+          <li>Customer Orientation</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2>Professional Experience</h2>
+    <div>
+      <h3>Project Manager Trainee</h3>
+      <p><strong>AST International GmbH, Germany</strong> <br />Oct 2023 – Sep 2024</p>
+      <ul>
+        <li>Supported project planning, management, and supervision.</li>
+        <li>Coordinated project tasks within defined timelines and budgets.</li>
+        <li>Implemented project goals per PEP and APQP standards.</li>
+        <li>Facilitated team collaboration and ensured successful project outcomes.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Technical Assistant SDLC</h3>
+      <p><strong>AST International GmbH, Germany</strong> <br />Apr 2023 – Sep 2023</p>
+      <ul>
+        <li>Executed R&D tasks under ISO-26262 standards.</li>
+        <li>Analyzed test results and mitigated risks per industry standards.</li>
+        <li>Created technical documentation from testing outcomes.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Customer Support Associate</h3>
+      <p><strong>IBM Concentrix Service Ltd, India</strong> <br />Aug 2017 – May 2019</p>
+      <ul>
+        <li>Provided multilingual customer support with 95% satisfaction rate.</li>
+        <li>Conducted customer surveys and managed CRM systems.</li>
+        <li>Collaborated with stakeholders to achieve KPIs.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Key Projects</h2>
+    <div>
+      <h3>AdBlue Sensor Integration &amp; Improvement</h3>
+      <p><strong>AST International GmbH</strong></p>
+      <ul>
+        <li>Coordinated R&D, production, and QA teams to implement sensor modifications, reducing development time.</li>
+        <li>Successfully delivered the project within budget and time constraints, increasing customer satisfaction.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Automated Assessment System (Master’s Project)</h3>
+      <p><strong>IU Internationale Hochschule</strong></p>
+      <ul>
+        <li>Led a Scrum-based project to optimize backlog management and sprint reviews, improving assessment accuracy by 30%.</li>
+        <li>Aligned stakeholder expectations, reducing workload and enhancing team efficiency.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="education">
+    <h2>Education</h2>
+    <div>
+      <h3>M.A. IT Management</h3>
+      <p><strong>IU Internationale Hochschule, Germany</strong> <br />Aug 2019 – Dec 2022</p>
+      <ul>
+        <li>Specialization: Project Management, Business Strategy, IT Management, Software Development</li>
+        <li>Master’s Thesis: Implementing GERT in Project Management</li>
+      </ul>
+    </div>
+    <div>
+      <h3>B.E. Electronics &amp; Telecommunication</h3>
+      <p><strong>Dr. M.G.R University, India</strong> <br />Jun 2009 – May 2013</p>
+      <ul>
+        <li>Focus: Mathematics, Embedded C, Analog/Digital Electronics, Signals &amp; Systems</li>
+        <li>Bachelor Thesis: Development of FPGA-based Electronic Systems</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>
+      <strong>Email:</strong> <a href="mailto:abhishek.kumar@gmx.de" class="contact-link">abhishek.kumar@gmx.de</a><br />
+      <strong>Phone:</strong> +49 176 27803395<br />
+      <strong>Location:</strong> Max-Weber Straße 4, 75175 Pforzheim, Germany
+    </p>
+  </section>
 
   <footer>
-    <p>&copy; 2025 Abhishek Kumar</p>
+    &copy; 2025 Abhishek Kumar
   </footer>
-
-  <script>
-    const deContent = `
-      <section><h2>Persönliche Informationen</h2><ul><li><strong>Geburtsdatum:</strong> 07.12.1991</li><li><strong>Geburtsort:</strong> New Delhi, Indien</li><li><strong>Nationalität:</strong> Indisch</li></ul></section>
-      <section><h2>Berufserfahrung</h2><ul>
-        <li><strong>Projekt Manager Trainee</strong>, AST International GmbH (10/2023 – 09/2024)<br>
-        Projektkoordination, Terminplanung, Umsetzung gem. PEP und APQP Standards</li>
-        <li><strong>Technischer Assistent SDLC</strong>, AST International GmbH (04/2023 – 09/2023)<br>
-        ISO-26262 konforme Tests, Risikoanalysen, technische Dokumentation</li>
-        <li><strong>Kundenbetreuer</strong>, IBM Concentrix Service Ltd (08/2017 – 05/2019)<br>
-        Mehrsprachiger Support, CRM Pflege, Kundenumfragen</li>
-      </ul></section>
-      <section><h2>Bildungsweg</h2><ul>
-        <li><strong>M.A. IT Management</strong>, IU Internationale Hochschule (08/2019 – 12/2022)<br>
-        Projektmanagement, internationale Strategien, Masterarbeit zu GERT</li>
-        <li><strong>B.E. Elektronik und Telekommunikation</strong>, Dr. M.G.R Universität (06/2009 – 05/2013)<br>
-        FPGA-Projekt, Signale & Systeme, Embedded C</li>
-      </ul></section>
-      <section><h2>Schlüsselprojekte</h2><ul>
-        <li><strong>AdBlue-Sensor Integration</strong> – Koordination R&D, Produktion & QA zur Optimierung</li>
-        <li><strong>Automatisiertes Bewertungssystem</strong> – Scrum-Projekt zur Verbesserung der Bewertungsgenauigkeit um 30%</li>
-      </ul></section>
-      <section><h2>Hard Skills</h2><ul>
-        <li>Projektmanagement nach IPMA</li><li>Scrum, Kanban</li><li>Tools: Jira, Confluence, MS-Projekt</li><li>Sprachen: C#, C++, Python</li>
-      </ul></section>
-      <section><h2>Software & Kenntnisse</h2><ul>
-        <li>MS Office, SAP, Cloud-Kenntnisse, Datenbanken</li>
-      </ul></section>
-      <section><h2>Sprachen</h2><ul><li>Deutsch (B1)</li><li>Englisch</li><li>Hindi</li></ul></section>
-      <section><h2>Persönlichkeit</h2><ul>
-        <li>Teamgeist, Zeitmanagement, Kommunikationsfähigkeit, Kundenorientierung</li>
-      </ul></section>
-      <section><h2>Interessen</h2><ul>
-        <li>Fotografie, Fitness, Reisen, Radfahren</li>
-      </ul></section>
-      <section><h2>Referenzen</h2><p><strong>Jan Heuser</strong><br>Direktor Projektmanagement<br>AST International GmbH<br>Email: jan.heuser@ast-international.com<br>Tel: 0151 – 29 60 15 -30</p></section>
-    `;
-
-    const enContent = `...`;
-
-    let isEnglish = false;
-    function toggleLanguage() {
-      document.getElementById('content').innerHTML = isEnglish ? deContent : enContent;
-      isEnglish = !isEnglish;
-    }
-    function toggleTheme() {
-      document.documentElement.toggleAttribute('data-theme');
-    }
-    document.addEventListener('DOMContentLoaded', () => {
-      toggleLanguage();
-    });
-  </script>
-
 </body>
 </html>
