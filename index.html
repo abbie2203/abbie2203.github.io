@@ -9,14 +9,22 @@
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: #f4f4f5;
-      color: #333;
+      background: #f9fafb;
+      color: #1f2937;
     }
     header {
-      background: #1f2937;
+      background: linear-gradient(90deg, #1e3a8a, #2563eb);
       color: #fff;
-      padding: 2rem;
+      padding: 3rem 2rem;
       text-align: center;
+    }
+    header img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #fff;
+      margin-bottom: 1rem;
     }
     .container {
       max-width: 960px;
@@ -27,11 +35,11 @@
       margin-bottom: 2rem;
     }
     h1, h2 {
-      color: #1f2937;
+      color: #111827;
     }
     footer {
       text-align: center;
-      background: #1f2937;
+      background: #1e3a8a;
       color: #fff;
       padding: 1rem;
     }
@@ -46,14 +54,22 @@
     .flex > div {
       flex: 1 1 45%;
     }
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
 
   <header>
+    <img src="profile.jpg" alt="Abhishek Kumar" />
     <h1>Abhishek Kumar</h1>
     <p>Projektleiter | IT Management | Agile Methoden</p>
-    <p>Email: <a href="mailto:abhishek.kumar@gmx.de" style="color:#60a5fa;">abhishek.kumar@gmx.de</a> | Tel: +49 176 27803395</p>
+    <p>Email: <a href="mailto:abhishek.kumar@gmx.de">abhishek.kumar@gmx.de</a> | Tel: +49 176 27803395</p>
   </header>
 
   <div class="container">
@@ -131,4 +147,3 @@
 
 </body>
 </html>
-
