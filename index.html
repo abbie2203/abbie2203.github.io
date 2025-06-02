@@ -5,168 +5,346 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Abhishek Kumar - Portfolio</title>
   <style>
-    body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; color: #222; background: #f6f8fa; }
-    header, footer { background: #282c34; color: #fff; }
-    header { padding: 2rem 1rem 1rem; text-align: center; }
-    nav a { color: #a8ff60; text-decoration: none; margin: 0 10px; font-weight: bold; }
-    nav a:hover { text-decoration: underline; }
-    section { max-width: 800px; margin: 2rem auto; padding: 2rem; background: #fff; border-radius: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,0.03);}
+    :root {
+      --bg-light: #f6f8fa;
+      --bg-dark: #1a202c;
+      --card-light: #fff;
+      --card-dark: #222c38;
+      --text-light: #1a202c;
+      --text-dark: #e4e4e4;
+      --accent: #195faa;
+      --accent2: #a8ff60;
+      --shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      background: var(--bg-light);
+      color: var(--text-light);
+      transition: background 0.4s, color 0.4s;
+    }
+    body.dark {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+    header, footer {
+      background: #282c34;
+      color: #fff;
+    }
+    header {
+      padding: 2rem 1rem 1rem 1rem;
+      text-align: center;
+      position: relative;
+    }
+    nav a {
+      color: var(--accent2);
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      text-decoration: underline;
+      color: var(--accent);
+    }
+    section {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: var(--card-light);
+      border-radius: 1rem;
+      box-shadow: var(--shadow);
+      transition: background 0.4s;
+    }
+    body.dark section {
+      background: var(--card-dark);
+    }
     h1, h2 { margin: 0 0 1rem; }
     h1 { font-size: 2.7rem; letter-spacing: 2px;}
-    h2 { color: #195faa; }
+    h2 { color: var(--accent); }
     ul { margin: 0; padding-left: 1.3rem;}
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;}
     @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } section { padding: 1rem;}}
     footer { padding: 1rem; text-align: center; font-size: 0.9rem; }
-    .contact-link { color: #195faa; }
+    .contact-link { color: var(--accent); }
+
+    /* Toggle Bar */
+    .toggle-bar {
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      z-index: 999;
+      background: #222c34dd;
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      transition: background 0.3s;
+    }
+    .toggle-bar label {
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      margin-right: 0.6rem;
+    }
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 46px;
+      height: 24px;
+      vertical-align: middle;
+    }
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #888;
+      transition: .4s;
+      border-radius: 24px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 2px;
+      bottom: 2px;
+      background-color: #fff;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    .toggle-switch input:checked + .slider {
+      background-color: #195faa;
+    }
+    .toggle-switch input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+    .toggle-bar span {
+      font-size: 0.95rem;
+      margin-right: 0.7rem;
+    }
+    @media (max-width: 600px) {
+      .toggle-bar { top: 7px; left: 7px; padding: 7px 10px; }
+      .toggle-bar label { font-size: 0.9rem; }
+    }
   </style>
 </head>
 <body>
+  <!-- Toggle Bar -->
+  <div class="toggle-bar" id="toggleBar">
+    <label for="modeSwitch"><span id="toggle-dark-label">Dark Mode</span></label>
+    <div class="toggle-switch">
+      <input type="checkbox" id="modeSwitch" />
+      <span class="slider"></span>
+    </div>
+    <span style="margin-left:18px; font-weight:600;" id="toggle-lang-label">DE</span>
+    <div class="toggle-switch">
+      <input type="checkbox" id="langSwitch" />
+      <span class="slider"></span>
+    </div>
+  </div>
+
   <header>
-    <h1>Abhishek Kumar</h1>
-    <p>Project Manager | M.A. IT Management</p>
+    <h1 data-en="Abhishek Kumar" data-de="Abhishek Kumar">Abhishek Kumar</h1>
+    <p data-en="Project Manager | M.A. IT Management"
+       data-de="Projektleiter | M.A. IT-Management">Project Manager | M.A. IT Management</p>
     <p>
       Max-Weber Straße 4, 75175 Pforzheim, DE &nbsp;|&nbsp; +49 176 27803395 &nbsp;|&nbsp;
       <a href="mailto:abhishek.kumar@gmx.de" class="contact-link">abhishek.kumar@gmx.de</a>
     </p>
     <nav style="margin-top:1.3rem">
-      <a href="#skills">Skills</a>
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#education">Education</a>
-      <a href="#contact">Contact</a>
+      <a href="#skills" data-en="Skills" data-de="Fähigkeiten">Skills</a>
+      <a href="#experience" data-en="Experience" data-de="Berufserfahrung">Experience</a>
+      <a href="#projects" data-en="Projects" data-de="Projekte">Projects</a>
+      <a href="#education" data-en="Education" data-de="Bildung">Education</a>
+      <a href="#contact" data-en="Contact" data-de="Kontakt">Contact</a>
     </nav>
   </header>
 
   <section id="about">
-    <h2>About Me</h2>
-    <p>
+    <h2 data-en="About Me" data-de="Über mich">About Me</h2>
+    <p data-en="Project Manager with expertise in IT Management, Project Coordination, and R&amp;D. Skilled in Agile methodologies, technical documentation, and multi-lingual communication. Passionate about photography, fitness, travel, and cycling."
+       data-de="Projektleiter mit Erfahrung in IT-Management, Projektkoordination und F&amp;E. Erfahren in agilen Methoden, technischer Dokumentation und mehrsprachiger Kommunikation. Leidenschaftlich in Fotografie, Fitness, Reisen und Radfahren.">
       Project Manager with expertise in IT Management, Project Coordination, and R&amp;D. Skilled in Agile methodologies, technical documentation, and multi-lingual communication. Passionate about photography, fitness, travel, and cycling.
     </p>
   </section>
 
   <section id="skills">
-    <h2>Skills</h2>
+    <h2 data-en="Skills" data-de="Fähigkeiten">Skills</h2>
     <div class="grid">
       <div>
-        <h3>Project Management</h3>
+        <h3 data-en="Project Management" data-de="Projektmanagement">Project Management</h3>
         <ul>
-          <li>IPMA Standards</li>
-          <li>Agile Methods: Scrum, Kanban</li>
-          <li>Tools: Jira, Confluence, MS Project</li>
+          <li data-en="IPMA Standards" data-de="IPMA-Standards">IPMA Standards</li>
+          <li data-en="Agile Methods: Scrum, Kanban" data-de="Agile Methoden: Scrum, Kanban">Agile Methods: Scrum, Kanban</li>
+          <li data-en="Tools: Jira, Confluence, MS Project" data-de="Tools: Jira, Confluence, MS Project">Tools: Jira, Confluence, MS Project</li>
         </ul>
       </div>
       <div>
-        <h3>Technical Skills</h3>
+        <h3 data-en="Technical Skills" data-de="Technische Fähigkeiten">Technical Skills</h3>
         <ul>
-          <li>Programming: C#, C++, Python</li>
-          <li>Database Management</li>
-          <li>SAP, MS Office, Cloud Computing</li>
+          <li data-en="Programming: C#, C++, Python" data-de="Programmierung: C#, C++, Python">Programming: C#, C++, Python</li>
+          <li data-en="Database Management" data-de="Datenbankmanagement">Database Management</li>
+          <li data-en="SAP, MS Office, Cloud Computing" data-de="SAP, MS Office, Cloud-Kenntnisse">SAP, MS Office, Cloud Computing</li>
         </ul>
       </div>
       <div>
-        <h3>Languages</h3>
+        <h3 data-en="Languages" data-de="Sprachen">Languages</h3>
         <ul>
-          <li>German</li>
-          <li>English</li>
-          <li>Hindi</li>
+          <li data-en="German" data-de="Deutsch">German</li>
+          <li data-en="English" data-de="Englisch">English</li>
+          <li data-en="Hindi" data-de="Hindi">Hindi</li>
         </ul>
       </div>
       <div>
-        <h3>Personal Strengths</h3>
+        <h3 data-en="Personal Strengths" data-de="Persönliche Stärken">Personal Strengths</h3>
         <ul>
-          <li>Teamwork</li>
-          <li>Time Management</li>
-          <li>Communication</li>
-          <li>Customer Orientation</li>
+          <li data-en="Teamwork" data-de="Teamgeist">Teamwork</li>
+          <li data-en="Time Management" data-de="Zeitmanagement">Time Management</li>
+          <li data-en="Communication" data-de="Kommunikationsfähigkeit">Communication</li>
+          <li data-en="Customer Orientation" data-de="Kundenorientierung">Customer Orientation</li>
         </ul>
       </div>
     </div>
   </section>
 
   <section id="experience">
-    <h2>Professional Experience</h2>
+    <h2 data-en="Professional Experience" data-de="Berufserfahrung">Professional Experience</h2>
     <div>
-      <h3>Project Manager Trainee</h3>
-      <p><strong>AST International GmbH, Germany</strong> <br />Oct 2023 – Sep 2024</p>
+      <h3 data-en="Project Manager Trainee" data-de="Projektmanager Trainee">Project Manager Trainee</h3>
+      <p><strong>AST International GmbH, Germany</strong> <br /><span data-en="Oct 2023 – Sep 2024" data-de="Okt 2023 – Sep 2024">Oct 2023 – Sep 2024</span></p>
       <ul>
-        <li>Supported project planning, management, and supervision.</li>
-        <li>Coordinated project tasks within defined timelines and budgets.</li>
-        <li>Implemented project goals per PEP and APQP standards.</li>
-        <li>Facilitated team collaboration and ensured successful project outcomes.</li>
+        <li data-en="Supported project planning, management, and supervision." data-de="Unterstützung bei Projektplanung, -management und Überwachung.">Supported project planning, management, and supervision.</li>
+        <li data-en="Coordinated project tasks within defined timelines and budgets." data-de="Koordination von Projektaufgaben innerhalb vorgegebener Zeit- und Budgetrahmen.">Coordinated project tasks within defined timelines and budgets.</li>
+        <li data-en="Implemented project goals per PEP and APQP standards." data-de="Umsetzung von Projektzielen nach PEP- und APQP-Standards.">Implemented project goals per PEP and APQP standards.</li>
+        <li data-en="Facilitated team collaboration and ensured successful project outcomes." data-de="Förderung der Teamarbeit und Sicherstellung erfolgreicher Projektergebnisse.">Facilitated team collaboration and ensured successful project outcomes.</li>
       </ul>
     </div>
     <div>
-      <h3>Technical Assistant SDLC</h3>
-      <p><strong>AST International GmbH, Germany</strong> <br />Apr 2023 – Sep 2023</p>
+      <h3 data-en="Technical Assistant SDLC" data-de="Technischer Assistent SDLC">Technical Assistant SDLC</h3>
+      <p><strong>AST International GmbH, Germany</strong> <br /><span data-en="Apr 2023 – Sep 2023" data-de="Apr 2023 – Sep 2023">Apr 2023 – Sep 2023</span></p>
       <ul>
-        <li>Executed R&D tasks under ISO-26262 standards.</li>
-        <li>Analyzed test results and mitigated risks per industry standards.</li>
-        <li>Created technical documentation from testing outcomes.</li>
+        <li data-en="Executed R&D tasks under ISO-26262 standards." data-de="Durchführung von F&E-Aufgaben nach ISO-26262-Standards.">Executed R&D tasks under ISO-26262 standards.</li>
+        <li data-en="Analyzed test results and mitigated risks per industry standards." data-de="Analyse von Testergebnissen und Risikominderung gemäß Branchenstandards.">Analyzed test results and mitigated risks per industry standards.</li>
+        <li data-en="Created technical documentation from testing outcomes." data-de="Erstellung technischer Dokumentationen auf Basis von Testergebnissen.">Created technical documentation from testing outcomes.</li>
       </ul>
     </div>
     <div>
-      <h3>Customer Support Associate</h3>
-      <p><strong>IBM Concentrix Service Ltd, India</strong> <br />Aug 2017 – May 2019</p>
+      <h3 data-en="Customer Support Associate" data-de="Kundenbetreuer">Customer Support Associate</h3>
+      <p><strong>IBM Concentrix Service Ltd, India</strong> <br /><span data-en="Aug 2017 – May 2019" data-de="Aug 2017 – Mai 2019">Aug 2017 – May 2019</span></p>
       <ul>
-        <li>Provided multilingual customer support with 95% satisfaction rate.</li>
-        <li>Conducted customer surveys and managed CRM systems.</li>
-        <li>Collaborated with stakeholders to achieve KPIs.</li>
+        <li data-en="Provided multilingual customer support with 95% satisfaction rate." data-de="Bereitstellung von mehrsprachigem Support mit 95 % Kundenzufriedenheit.">Provided multilingual customer support with 95% satisfaction rate.</li>
+        <li data-en="Conducted customer surveys and managed CRM systems." data-de="Durchführung von Kundenumfragen und Verwaltung von CRM-Systemen.">Conducted customer surveys and managed CRM systems.</li>
+        <li data-en="Collaborated with stakeholders to achieve KPIs." data-de="Zusammenarbeit mit Stakeholdern zur Erreichung wichtiger Leistungskennzahlen.">Collaborated with stakeholders to achieve KPIs.</li>
       </ul>
     </div>
   </section>
 
   <section id="projects">
-    <h2>Key Projects</h2>
+    <h2 data-en="Key Projects" data-de="Schlüsselprojekte">Key Projects</h2>
     <div>
-      <h3>AdBlue Sensor Integration &amp; Improvement</h3>
+      <h3 data-en="AdBlue Sensor Integration &amp; Improvement" data-de="AdBlue-Sensor Integration &amp; Verbesserung">AdBlue Sensor Integration &amp; Improvement</h3>
       <p><strong>AST International GmbH</strong></p>
       <ul>
-        <li>Coordinated R&D, production, and QA teams to implement sensor modifications, reducing development time.</li>
-        <li>Successfully delivered the project within budget and time constraints, increasing customer satisfaction.</li>
+        <li data-en="Coordinated R&D, production, and QA teams to implement sensor modifications, reducing development time." data-de="Koordination von F&E-, Produktions- und QA-Teams zur Implementierung von Sensormodifikationen und Reduzierung der Entwicklungszeit.">Coordinated R&D, production, and QA teams to implement sensor modifications, reducing development time.</li>
+        <li data-en="Successfully delivered the project within budget and time constraints, increasing customer satisfaction." data-de="Erfolgreiche Projektabwicklung im Budget- und Zeitrahmen, was die Kundenzufriedenheit steigerte.">Successfully delivered the project within budget and time constraints, increasing customer satisfaction.</li>
       </ul>
     </div>
     <div>
-      <h3>Automated Assessment System (Master’s Project)</h3>
+      <h3 data-en="Automated Assessment System (Master’s Project)" data-de="Automatisiertes Beurteilungssystem (Master-Projekt)">Automated Assessment System (Master’s Project)</h3>
       <p><strong>IU Internationale Hochschule</strong></p>
       <ul>
-        <li>Led a Scrum-based project to optimize backlog management and sprint reviews, improving assessment accuracy by 30%.</li>
-        <li>Aligned stakeholder expectations, reducing workload and enhancing team efficiency.</li>
+        <li data-en="Led a Scrum-based project to optimize backlog management and sprint reviews, improving assessment accuracy by 30%." data-de="Leitung eines Scrum-Projekts zur Optimierung von Backlog-Management und Sprint-Reviews, Steigerung der Bewertungsgenauigkeit um 30 %.">Led a Scrum-based project to optimize backlog management and sprint reviews, improving assessment accuracy by 30%.</li>
+        <li data-en="Aligned stakeholder expectations, reducing workload and enhancing team efficiency." data-de="Abstimmung von Stakeholder-Erwartungen zur Reduzierung des Arbeitsaufwands und Steigerung der Effizienz.">Aligned stakeholder expectations, reducing workload and enhancing team efficiency.</li>
       </ul>
     </div>
   </section>
 
   <section id="education">
-    <h2>Education</h2>
+    <h2 data-en="Education" data-de="Bildung">Education</h2>
     <div>
-      <h3>M.A. IT Management</h3>
-      <p><strong>IU Internationale Hochschule, Germany</strong> <br />Aug 2019 – Dec 2022</p>
+      <h3 data-en="M.A. IT Management" data-de="M.A. IT-Management">M.A. IT Management</h3>
+      <p><strong>IU Internationale Hochschule, Germany</strong> <br /><span data-en="Aug 2019 – Dec 2022" data-de="Aug 2019 – Dez 2022">Aug 2019 – Dec 2022</span></p>
       <ul>
-        <li>Specialization: Project Management, Business Strategy, IT Management, Software Development</li>
-        <li>Master’s Thesis: Implementing GERT in Project Management</li>
+        <li data-en="Specialization: Project Management, Business Strategy, IT Management, Software Development" data-de="Schwerpunkte: Projektmanagement, Geschäftsstrategie, IT-Management, Softwareentwicklung">Specialization: Project Management, Business Strategy, IT Management, Software Development</li>
+        <li data-en="Master’s Thesis: Implementing GERT in Project Management" data-de="Masterarbeit: Implementierung von GERT im Projektmanagement">Master’s Thesis: Implementing GERT in Project Management</li>
       </ul>
     </div>
     <div>
-      <h3>B.E. Electronics &amp; Telecommunication</h3>
-      <p><strong>Dr. M.G.R University, India</strong> <br />Jun 2009 – May 2013</p>
+      <h3 data-en="B.E. Electronics &amp; Telecommunication" data-de="B.E. Elektronik &amp; Telekommunikation">B.E. Electronics &amp; Telecommunication</h3>
+      <p><strong>Dr. M.G.R University, India</strong> <br /><span data-en="Jun 2009 – May 2013" data-de="Jun 2009 – Mai 2013">Jun 2009 – May 2013</span></p>
       <ul>
-        <li>Focus: Mathematics, Embedded C, Analog/Digital Electronics, Signals &amp; Systems</li>
-        <li>Bachelor Thesis: Development of FPGA-based Electronic Systems</li>
+        <li data-en="Focus: Mathematics, Embedded C, Analog/Digital Electronics, Signals &amp; Systems" data-de="Schwerpunkte: Mathematik, Embedded C, Analog-/Digital-Elektronik, Signale &amp; Systeme">Focus: Mathematics, Embedded C, Analog/Digital Electronics, Signals &amp; Systems</li>
+        <li data-en="Bachelor Thesis: Development of FPGA-based Electronic Systems" data-de="Bachelorarbeit: Entwicklung elektronischer Systeme auf Basis von FPGA">Bachelor Thesis: Development of FPGA-based Electronic Systems</li>
       </ul>
     </div>
   </section>
 
   <section id="contact">
-    <h2>Contact</h2>
+    <h2 data-en="Contact" data-de="Kontakt">Contact</h2>
     <p>
-      <strong>Email:</strong> <a href="mailto:abhishek.kumar@gmx.de" class="contact-link">abhishek.kumar@gmx.de</a><br />
-      <strong>Phone:</strong> +49 176 27803395<br />
-      <strong>Location:</strong> Max-Weber Straße 4, 75175 Pforzheim, Germany
+      <strong data-en="Email:" data-de="E-Mail:">Email:</strong>
+      <a href="mailto:abhishek.kumar@gmx.de" class="contact-link">abhishek.kumar@gmx.de</a><br />
+      <strong data-en="Phone:" data-de="Telefon:">Phone:</strong> +49 176 27803395<br />
+      <strong data-en="Location:" data-de="Adresse:">Location:</strong> Max-Weber Straße 4, 75175 Pforzheim, Germany
     </p>
   </section>
 
   <footer>
     &copy; 2025 Abhishek Kumar
   </footer>
+
+  <!-- JavaScript for toggles -->
+  <script>
+    // DARK/LIGHT MODE
+    const modeSwitch = document.getElementById('modeSwitch');
+    const darkLabel = document.getElementById('toggle-dark-label');
+    function setMode(dark) {
+      document.body.classList.toggle('dark', dark);
+      darkLabel.textContent = dark
+        ? (langSwitch.checked ? "Dunkler Modus" : "Dark Mode")
+        : (langSwitch.checked ? "Heller Modus" : "Light Mode");
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    }
+    // LANGUAGE TOGGLE
+    const langSwitch = document.getElementById('langSwitch');
+    const langLabel = document.getElementById('toggle-lang-label');
+    function setLanguage(de) {
+      // For all elements with data-en and data-de
+      document.querySelectorAll('[data-en]').forEach(el => {
+        el.textContent = de ? el.getAttribute('data-de') : el.getAttribute('data-en');
+      });
+      langLabel.textContent = de ? "EN" : "DE";
+      // Update dark mode label to current language and mode
+      setMode(modeSwitch.checked);
+      localStorage.setItem('lang', de ? 'de' : 'en');
+    }
+    // INIT FROM LOCALSTORAGE
+    document.addEventListener('DOMContentLoaded', function() {
+      // Init mode
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') modeSwitch.checked = true;
+      setMode(modeSwitch.checked);
+      // Init language
+      const savedLang = localStorage.getItem('lang');
+      if (savedLang === 'de') langSwitch.checked = true;
+      setLanguage(langSwitch.checked);
+    });
+    // EVENT LISTENERS
+    modeSwitch.addEventListener('change', function() {
+      setMode(this.checked);
+    });
+    langSwitch.addEventListener('change', function() {
+      setLanguage(this.checked);
+    });
+  </script>
 </body>
 </html>
