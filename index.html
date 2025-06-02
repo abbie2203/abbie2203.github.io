@@ -67,8 +67,6 @@
     @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } section { padding: 1rem;}}
     footer { padding: 1rem; text-align: center; font-size: 0.9rem; }
     .contact-link { color: var(--accent); }
-
-    /* Toggle Bar */
     .toggle-bar {
       position: fixed;
       top: 18px;
@@ -140,12 +138,12 @@
 <body>
   <!-- Toggle Bar -->
   <div class="toggle-bar" id="toggleBar">
-    <label for="modeSwitch"><span id="toggle-dark-label">Dark Mode</span></label>
+    <label for="modeSwitch" id="toggle-dark-label" data-en="Dark Mode" data-de="Dunkler Modus">Dark Mode</label>
     <div class="toggle-switch">
       <input type="checkbox" id="modeSwitch" />
       <span class="slider"></span>
     </div>
-    <span style="margin-left:18px; font-weight:600;" id="toggle-lang-label">DE</span>
+    <label for="langSwitch" id="toggle-lang-label" data-en="DE" data-de="EN" style="margin-left:18px; font-weight:600;">DE</label>
     <div class="toggle-switch">
       <input type="checkbox" id="langSwitch" />
       <span class="slider"></span>
@@ -307,37 +305,47 @@
     // DARK/LIGHT MODE
     const modeSwitch = document.getElementById('modeSwitch');
     const darkLabel = document.getElementById('toggle-dark-label');
-    function setMode(dark) {
-      document.body.classList.toggle('dark', dark);
-      darkLabel.textContent = dark
-        ? (langSwitch.checked ? "Dunkler Modus" : "Dark Mode")
-        : (langSwitch.checked ? "Heller Modus" : "Light Mode");
-      localStorage.setItem('theme', dark ? 'dark' : 'light');
-    }
     // LANGUAGE TOGGLE
     const langSwitch = document.getElementById('langSwitch');
     const langLabel = document.getElementById('toggle-lang-label');
+
+    // Helper: Set All Language-Dependent Texts
     function setLanguage(de) {
-      // For all elements with data-en and data-de
       document.querySelectorAll('[data-en]').forEach(el => {
-        el.textContent = de ? el.getAttribute('data-de') : el.getAttribute('data-en');
+        if (el.tagName.toLowerCase() === 'input' || el.tagName.toLowerCase() === 'textarea') {
+          // Do not set value for input fields (not in this template)
+        } else {
+          el.textContent = de ? el.getAttribute('data-de') : el.getAttribute('data-en');
+        }
       });
-      langLabel.textContent = de ? "EN" : "DE";
       // Update dark mode label to current language and mode
       setMode(modeSwitch.checked);
       localStorage.setItem('lang', de ? 'de' : 'en');
     }
+
+    function setMode(dark) {
+      document.body.classList.toggle('dark', dark);
+      // Use langSwitch.checked for the language
+      const isDE = langSwitch.checked;
+      darkLabel.textContent = dark
+        ? (isDE ? "Dunkler Modus" : "Dark Mode")
+        : (isDE ? "Heller Modus" : "Light Mode");
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    }
+
     // INIT FROM LOCALSTORAGE
     document.addEventListener('DOMContentLoaded', function() {
       // Init mode
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme === 'dark') modeSwitch.checked = true;
       setMode(modeSwitch.checked);
+
       // Init language
       const savedLang = localStorage.getItem('lang');
       if (savedLang === 'de') langSwitch.checked = true;
       setLanguage(langSwitch.checked);
     });
+
     // EVENT LISTENERS
     modeSwitch.addEventListener('change', function() {
       setMode(this.checked);
