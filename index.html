@@ -28,8 +28,9 @@
     header {
       background: var(--header-bg);
       color: #fff;
-      padding: 3rem 2rem;
+      padding: 3rem 2rem 2rem 2rem;
       text-align: center;
+      position: relative;
     }
     header img {
       width: 150px;
@@ -59,49 +60,76 @@
     ul {
       padding-left: 1.5rem;
     }
-    .flex {
+    .toggle-panel {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
       display: flex;
-      flex-wrap: wrap;
+      align-items: center;
       gap: 1rem;
     }
-    .flex > div {
-      flex: 1 1 45%;
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 26px;
     }
-    a {
-      color: #3b82f6;
-      text-decoration: none;
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
     }
-    a:hover {
-      text-decoration: underline;
-    }
-    .toggle-controls {
-      text-align: center;
-      margin-top: 1rem;
-    }
-    button {
-      margin: 0 0.5rem;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
+    .slider {
+      position: absolute;
       cursor: pointer;
-      border: none;
-      border-radius: 5px;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 26px;
     }
-    .toggle-controls button:hover {
-      opacity: 0.8;
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #4ade80;
+    }
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: white;
     }
   </style>
 </head>
 <body>
 
   <header>
+    <div class="toggle-panel">
+      <label class="switch">
+        <input type="checkbox" onclick="toggleTheme()">
+        <span class="slider"></span>
+      </label>
+      <button class="lang-btn" onclick="toggleLanguage()" title="Toggle Language">🌐</button>
+    </div>
     <img src="profile.jpg" alt="Abhishek Kumar" />
     <h1 id="name">Abhishek Kumar</h1>
     <p id="role">Projektleiter | IT Management | Agile Methoden</p>
     <p>Email: <a href="mailto:abhishek.kumar@gmx.de">abhishek.kumar@gmx.de</a> | Tel: +49 176 27803395</p>
-    <div class="toggle-controls">
-      <button onclick="toggleTheme()">Toggle Dark Mode</button>
-      <button onclick="toggleLanguage()">Switch to English</button>
-    </div>
   </header>
 
   <div class="container" id="content">
@@ -113,47 +141,19 @@
   </footer>
 
   <script>
-    const deContent = `
-      <section><h2>Berufserfahrung</h2><ul><li><strong>Projekt Manager Trainee</strong>, AST International GmbH (10/2023 – 09/2024)</li><li><strong>Technischer Assistent SDLC</strong>, AST International GmbH (04/2023 – 09/2023)</li><li><strong>Kundenbetreuer</strong>, IBM Concentrix Services (08/2017 – 05/2019)</li></ul></section>
-      <section><h2>Bildungsweg</h2><ul><li><strong>M.A. IT Management</strong>, IU Internationale Hochschule (2019 – 2022)</li><li><strong>B.E. Elektronik & Telekommunikation</strong>, Dr. M.G.R Universität (2009 – 2013)</li></ul></section>
-      <section><h2>Schlüsselprojekte</h2><ul><li><strong>AdBlue-Sensor Integration</strong> – AST GmbH</li><li><strong>Automatisiertes Bewertungssystem</strong> – Masterprojekt</li></ul></section>
-      <section><h2>Hard Skills</h2><ul><li>Projektmanagement, Agile Methoden</li><li>Tools: Jira, Confluence, MS Projekt</li><li>Sprachen: C#, C++, Python</li></ul></section>
-      <section><h2>Software & Kenntnisse</h2><ul><li>MS Office, SAP, Cloud</li></ul></section>
-      <section><h2>Sprachen</h2><ul><li>Deutsch (B1), Englisch, Hindi</li></ul></section>
-      <section><h2>Persönlichkeit</h2><ul><li>Teamgeist, Zeitmanagement, Kommunikationsstärke</li></ul></section>
-      <section><h2>Interessen</h2><ul><li>Fotografie, Fitness, Reisen</li></ul></section>
-      <section><h2>Referenzen</h2><p>Jan Heuser, AST GmbH</p></section>`;
-
-    const enContent = `
-      <section><h2>Professional Experience</h2><ul><li><strong>Project Manager Trainee</strong>, AST International GmbH (10/2023 – 09/2024)</li><li><strong>Technical Assistant SDLC</strong>, AST International GmbH (04/2023 – 09/2023)</li><li><strong>Customer Support Associate</strong>, IBM Concentrix (08/2017 – 05/2019)</li></ul></section>
-      <section><h2>Education</h2><ul><li><strong>M.A. IT Management</strong>, IU International University (2019 – 2022)</li><li><strong>B.E. Electronics & Telecommunications</strong>, Dr. M.G.R University (2009 – 2013)</li></ul></section>
-      <section><h2>Key Projects</h2><ul><li><strong>AdBlue Sensor Integration</strong> – AST GmbH</li><li><strong>Automated Evaluation System</strong> – Master Project</li></ul></section>
-      <section><h2>Hard Skills</h2><ul><li>Project Management, Agile Methods</li><li>Tools: Jira, Confluence, MS Project</li><li>Languages: C#, C++, Python</li></ul></section>
-      <section><h2>Software & Knowledge</h2><ul><li>MS Office, SAP, Cloud</li></ul></section>
-      <section><h2>Languages</h2><ul><li>German (B1), English, Hindi</li></ul></section>
-      <section><h2>Personality</h2><ul><li>Teamwork, Time Management, Communication</li></ul></section>
-      <section><h2>Interests</h2><ul><li>Photography, Fitness, Travel</li></ul></section>
-      <section><h2>References</h2><p>Jan Heuser, AST GmbH</p></section>`;
-
+    const deContent = `...`;
+    const enContent = `...`;
     let isEnglish = false;
-
     function toggleLanguage() {
       document.getElementById('content').innerHTML = isEnglish ? deContent : enContent;
-      document.querySelector('button[onclick="toggleLanguage()"]').textContent = isEnglish ? 'Switch to English' : 'Wechsel zu Deutsch';
       isEnglish = !isEnglish;
     }
-
     function toggleTheme() {
       const html = document.documentElement;
-      if (html.getAttribute('data-theme') === 'dark') {
-        html.removeAttribute('data-theme');
-      } else {
-        html.setAttribute('data-theme', 'dark');
-      }
+      html.toggleAttribute('data-theme');
     }
-
     document.addEventListener('DOMContentLoaded', () => {
-      toggleLanguage(); // load initial content in DE
+      toggleLanguage();
     });
   </script>
 
