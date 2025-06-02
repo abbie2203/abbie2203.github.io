@@ -15,12 +15,10 @@
       --accent: #3370ff;
       --accent2: #5bd87e;
       --shadow: 0 4px 32px rgba(0,0,0,0.07);
-      /* Animated bg color stops (light) */
       --wave1: #c1e4ff;
       --wave2: #d6ffd8;
       --wave3: #f3c7fa;
       --wave4: #fafdcd;
-      /* Animated bg color stops (dark) */
       --wave1-dark: #25325a;
       --wave2-dark: #223542;
       --wave3-dark: #284774;
@@ -41,6 +39,8 @@
       background: var(--bg-dark);
       color: var(--text-dark);
     }
+
+    /* Animated SVG background */
     .bg-anim {
       position: fixed;
       inset: 0;
@@ -57,6 +57,34 @@
       min-width: 1000px;
       min-height: 800px;
     }
+
+    .toggle-bar {
+      position: fixed; top: 18px; left: 18px; z-index: 999;
+      background: #222c34dd;
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      display: flex; align-items: center; gap: 1.4rem;
+      transition: background 0.3s;
+      font-size: 1rem;
+    }
+    .toggle-bar label { font-weight: 500; cursor: pointer; margin-right: 0.6rem;}
+    .toggle-switch { position: relative; display: inline-block; width: 44px; height: 24px; vertical-align: middle;}
+    .toggle-switch input { opacity: 0; width: 0; height: 0;}
+    .slider {
+      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #888; transition: .4s; border-radius: 24px;
+    }
+    .slider:before {
+      position: absolute; content: ""; height: 20px; width: 20px; left: 2px; bottom: 2px;
+      background-color: #fff; transition: .4s; border-radius: 50%;
+    }
+    .toggle-switch input:checked + .slider { background-color: #3370ff;}
+    .toggle-switch input:checked + .slider:before { transform: translateX(20px);}
+    .toggle-bar span { font-size: 0.96rem; margin-right: 0.7rem;}
+    @media (max-width: 600px) { .toggle-bar { top: 7px; left: 7px; padding: 7px 10px; font-size: 0.93rem;}}
+
     header {
       background: linear-gradient(160deg, #3370ff 0%, #5bd87e 100%);
       color: #fff;
@@ -132,7 +160,7 @@
     ul { margin: 0; padding-left: 1.3rem;}
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;}
     @media (max-width: 800px) { .grid { grid-template-columns: 1fr; }}
-    @media (max-width: 600px) { 
+    @media (max-width: 600px) {
       section { padding: 1.1rem 0.7rem; }
       .photo-wrap { width: 100px; height: 100px; top: 36px;}
       .hero-text { margin-top: 48px;}
@@ -140,37 +168,11 @@
     }
     footer { padding: 2rem 1rem 1.2rem; text-align: center; font-size: 1.05rem; color: #555;}
     body.dark footer { color: #ddd;}
-    /* Toggle Bar */
-    .toggle-bar {
-      position: fixed; top: 18px; left: 18px; z-index: 999;
-      background: #222c34dd;
-      color: #fff;
-      padding: 12px 18px;
-      border-radius: 2rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      display: flex; align-items: center; gap: 1.4rem;
-      transition: background 0.3s;
-      font-size: 1rem;
-    }
-    .toggle-bar label { font-weight: 500; cursor: pointer; margin-right: 0.6rem;}
-    .toggle-switch { position: relative; display: inline-block; width: 44px; height: 24px; vertical-align: middle;}
-    .toggle-switch input { opacity: 0; width: 0; height: 0;}
-    .slider {
-      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
-      background-color: #888; transition: .4s; border-radius: 24px;
-    }
-    .slider:before {
-      position: absolute; content: ""; height: 20px; width: 20px; left: 2px; bottom: 2px;
-      background-color: #fff; transition: .4s; border-radius: 50%;
-    }
-    .toggle-switch input:checked + .slider { background-color: #3370ff;}
-    .toggle-switch input:checked + .slider:before { transform: translateX(20px);}
-    .toggle-bar span { font-size: 0.96rem; margin-right: 0.7rem;}
-    @media (max-width: 600px) { .toggle-bar { top: 7px; left: 7px; padding: 7px 10px; font-size: 0.93rem;}}
+    main, .toggle-bar, footer { position: relative; z-index: 1; }
   </style>
 </head>
 <body>
-   <!-- animation -->
+  <!-- Animated Background -->
   <div class="bg-anim">
     <svg id="animated-waves" viewBox="0 0 1920 1080" preserveAspectRatio="none">
       <defs>
@@ -195,6 +197,7 @@
       <path id="wave2" fill="url(#grad2-light)" opacity="0.35"/>
     </svg>
   </div>
+
   <!-- Toggle Bar -->
   <div class="toggle-bar" id="toggleBar">
     <label for="modeSwitch" id="toggle-dark-label" data-en="Dark Mode" data-de="Dunkler Modus">Dark Mode</label>
@@ -211,7 +214,6 @@
 
   <header>
     <div class="photo-wrap">
-      <!-- Use your own photo as profile.jpg in your repo! -->
       <img src="profile.jpg" alt="Abhishek Kumar photo" />
     </div>
     <div class="hero-text">
@@ -370,12 +372,9 @@
     &copy; 2025 Abhishek Kumar
   </footer>
 
-  <!-- JavaScript for toggles -->
+  <!-- JavaScript for toggles and animated background -->
   <script>
-    //Animation
-    // -- Animated waves logic --
-    function lerp(a, b, t) { return a + (b - a) * t; }
-    // Generate animated path (sinusoidal)
+    // Animated waves
     function genWavePath(amplitude, freq, phase, yOffset, height, width, step) {
       let path = `M0,${yOffset}`;
       for(let x = 0; x <= width; x += step) {
@@ -387,19 +386,13 @@
     }
     let t = 0;
     function animateWaves() {
-      const w = 1920, h = 1080;
-      // Responsive scaling
       const svg = document.getElementById('animated-waves');
       const bw = window.innerWidth, bh = window.innerHeight;
       svg.setAttribute('width', bw);
       svg.setAttribute('height', bh);
-
-      // Light or dark mode?
       const dark = document.body.classList.contains('dark');
       svg.querySelector('#wave1').setAttribute('fill', `url(#grad1-${dark?'dark':'light'})`);
       svg.querySelector('#wave2').setAttribute('fill', `url(#grad2-${dark?'dark':'light'})`);
-
-      // Animate the waves
       svg.querySelector('#wave1').setAttribute('d',
         genWavePath(38, 2, t*0.9, 220+Math.sin(t)*12, bh*0.7, bw, 32)
       );
@@ -411,22 +404,13 @@
     }
     animateWaves();
 
-    // Sync animated background with dark/light mode toggle
-    const modeSwitch = document.getElementById('modeSwitch');
-    modeSwitch && modeSwitch.addEventListener('change', function() {
-      // The background updates fill/colors on next frame automatically
-    });
-    // DARK/LIGHT MODE
+    // Dark/Light Mode and Language Toggle
     const modeSwitch = document.getElementById('modeSwitch');
     const darkLabel = document.getElementById('toggle-dark-label');
-    // LANGUAGE TOGGLE
     const langSwitch = document.getElementById('langSwitch');
-    const langLabel = document.getElementById('toggle-lang-label');
     function setLanguage(de) {
       document.querySelectorAll('[data-en]').forEach(el => {
-        if (el.tagName.toLowerCase() === 'input' || el.tagName.toLowerCase() === 'textarea') {
-          // skip
-        } else {
+        if (el.tagName.toLowerCase() !== 'input' && el.tagName.toLowerCase() !== 'textarea') {
           el.textContent = de ? el.getAttribute('data-de') : el.getAttribute('data-en');
         }
       });
@@ -455,6 +439,7 @@
     langSwitch.addEventListener('change', function() {
       setLanguage(this.checked);
     });
+    window.addEventListener('resize', () => setTimeout(animateWaves, 1));
   </script>
 </body>
 </html>
